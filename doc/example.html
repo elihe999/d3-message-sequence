@@ -38,7 +38,7 @@
         <div id="container"></div>
 
         <script>
-         var msg_seq = d3.messageSequence().fade(5000);
+         var msg_seq = d3.messageSequence();
 
          d3.select('#container')
            .append("svg")
@@ -46,15 +46,17 @@
            .attr("height", "100%")
            .call(msg_seq)
 
-         function delay_add(messages) {
-           var msg = messages.shift();
-           if (msg) {
-             msg_seq.addMessage(msg);
-             setTimeout(function() { delay_add(messages)}, 500);
-           }
-         }
+        
+        function delay_add(messages) {
+          var msg = messages.shift()
+          while (msg) {
+            msg_seq.addMessage(msg)
+            msg = messages.shift()
+          }
+        }
 
-         delay_add([
+        delay_add(
+          [
            {from: "customer", to: "barrista1", msg: "place order"},
            {from: "barrista1", to: "register", msg: "enter order"},
            {from: "register", to: "barrista1", msg: "give total"},
@@ -74,7 +76,9 @@
            {from: "customer", to: "manager", msg: "complain"},
            {from: "manager", to: "barrista1", msg: "fire"},
            {from: "manager", to: "barrista2", msg: "fire"},
-         ])
+         ]
+        )
+
 
         </script>
     </body>

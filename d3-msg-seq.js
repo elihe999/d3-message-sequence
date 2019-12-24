@@ -1,7 +1,7 @@
 d3.messageSequence = function() {
   var actor_box_offset = 2,
       fade_time = 2000,
-      animation_time = 250;
+      animation_time = 50;
 
   var data = [];
   var actor_names = [];
@@ -218,6 +218,13 @@ d3.messageSequence = function() {
             });
       };
     });
+
+    selection.on("click", function(d,i) {
+      console.log(d3.select(this))
+      
+      d3.selectAll('.message').filter(function(d,i,list) {
+      })
+    })
   };
 
   chart.fade = function(time) {
@@ -240,8 +247,6 @@ d3.messageSequence = function() {
 
     update();
 
-    return chart;
   };
-
   return chart;
 }
